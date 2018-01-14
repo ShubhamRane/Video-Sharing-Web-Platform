@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title> new Channel  </title>
+</head>
+<style type="text/css">
+        body {
+            font-family: helvetica;
+            /*margin:25px;*/
+            background-color:#444;
+            color:#fff;
+            font-size:90%;
+        }
+        a, .nolink{
+            background:#222;
+            width:90%;
+            padding:8px 5%;
+            /*text-indent:8px;*/
+            display:block;
+            border-top:1px solid #111;
+            border-bottom:1px solid #111;
+            border-radius:8px;
+            text-align:center;
+        }
+        a:link{color:#fff}
+        a:visited{color:#fff}
+        a:hover{color:#FF3C00}
+        .instructions {
+            margin: auto;
+            display:block;
+            padding:25px;
+            text-align:center;
+        }
+        textarea {
+            width:80%;
+            margin: auto;
+            display:block;
+            padding:4px;
+            background:#333;
+            color:#fff;
+            border:1px solid #eee;
+        } textarea:active,textarea:focus {
+            /*border: 1px solid #FF3300;*/
+            border: 1px solid #aaa;
+        }
+
+        .create {
+            margin: auto;
+            display:block;
+            background:#333;
+            color:#fff;
+            padding:4px;
+            border-radius:2px;
+            border:1px solid #aaa;
+            font-size:110%;
+        }
+
+        #playlistLink {
+            margin: auto;
+            display:block;
+        }
+
+
+</style>
+<body>
+<span class="instructions">Paste a list of Youtube URL's below to create a Channel...</span>
+<textarea name="youtubeUrls" id="youtubeUrls" cols="30" rows="10"></textarea>
+<br/><br/>
+
+<span class="instructions">Choose a name for your Channel...</span>
+<textarea name="youtubeUrls" id="youtubeUrls" cols="10" rows="1"></textarea>
+<br/><br/>
+
+<button class="create">Create Channel</button>
+</body>
+</html>

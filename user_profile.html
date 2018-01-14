@@ -1,0 +1,194 @@
+<html>
+<head>
+  <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+
+/* CSS design by @jofpin */
+@import url(https://fonts.googleapis.com/css?family=Raleway|Varela+Round|Coda);
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+body {
+  background: #fffcdd;
+  padding: 2.23em;
+}
+
+.title-pen {
+  color: #333;
+  font-family: "Coda", sans-serif;
+  text-align: center;
+}
+.title-pen span {
+  color: #55acee;
+}
+
+.user-profile {
+  margin: auto;
+  width: 25em; 
+  height: 11em;
+  background: #fff;
+  border-radius: .3em;
+}
+
+.user-profile  .username {
+  margin: auto;
+  margin-top: -4.40em;
+  margin-left: 5.80em;
+  color: #658585;
+  font-size: 1.53em;
+  font-family: "Coda", sans-serif;
+  font-weight: bold;
+}
+.user-profile  .bio {
+  margin: auto;
+  display: inline-block;
+  margin-left: 10.43em;
+  color: #e76043; 
+  font-size: .87em;
+  font-family: "varela round", sans-serif;
+}
+.user-profile > .description {
+  margin: auto;
+  margin-top: 1.35em;
+  margin-right: 4.43em;
+  width: 14em;
+  color: #c0c5c5; 
+  font-size: .87em;
+  font-family: "varela round", sans-serif;
+}
+.user-profile > img.avatar {
+  padding: .7em;
+  margin-left: .3em;
+  margin-top: .3em;
+  height: 6.23em;
+  width: 6.23em;
+  border-radius: 18em;
+}
+
+.user-profile ul.data {
+  margin: 2em auto;
+  height: 3.70em;
+  background: #4eb6b6;
+  text-align: center;
+  border-radius: 0 0 .3em .3em;
+}
+.user-profile li {
+  margin: 0 auto;
+  padding: 1.00em; 
+  width: 33.33334%;
+  display: table-cell;
+  text-align: center;
+}
+
+.user-profile span {
+  font-family: "varela round", sans-serif;
+  color: #e3eeee;
+  white-space: nowrap;
+  font-size: 1.27em;
+  font-weight: bold;
+}
+.user-profile span:hover {
+  color: #daebea;
+}
+
+footer > h1 {
+  display: block;
+  text-align: center;
+  clear: both;
+  font-family: "Coda", sans-serif;
+  color: #343f3d;
+  line-height: 6;
+  font-size: 1.6em;
+}
+footer > h1 a {
+  text-decoration: none;
+  color: #ea4c89;
+}
+  </style>
+</head>
+<body onload="checkCookie()">
+
+<h1 class="title-pen"> User Profile </h1>
+<div class="user-profile">
+  <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGUsug5321YpgmyZBfyowM1WmwCglTJ0czWogvCz65tyw7NSoj" alt="Ash" />
+    <div class="username">Rushikesh Patangrao</div>
+  <div class="bio">
+    
+  </div>
+    <div class="description">
+        hrushikesh.patangrao@gmail.com
+    </div>
+  <ul class="data">
+    <li>
+      <span ><i class="fa fa-play-circle" aria-hidden="true"></i> Videos <span id="video"></span></span>
+    </li>
+    <li>
+      <span><i class="fa fa-plus" aria-hidden="true"></i> Playlists <span id="playlist"></span></span>
+    </li>
+
+ </ul>
+</div>
+<script type="text/javascript">
+
+function getUserInfo() {
+  
+  
+  var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        myObj = JSON.parse(this.responseText);
+        document.getElementById('video').innerHTML = myObj.video_count;
+        document.getElementById('playlist').innerHTML = myObj.playlist_count;
+	document.getElementsByClassName('username')[0].innerHTML = myObj.user_name;
+	document.getElementsByClassName('description')[0].innerHTML = getCookie('emailAdress');
+    }
+  };
+  var email_id = getCookie('emailAdress');
+  console.log(email_id);
+  xmlhttp.open("GET", "cgi/user_profile.php?email_id=" + email_id, true);
+  xmlhttp.send();
+
+}
+
+ // set cookie functions
+                function setCookie(cname,cvalue,exdays) {
+                    var d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    var expires = "expires=" + d.toGMTString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                }
+
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var decodedCookie = decodeURIComponent(document.cookie);
+                    var ca = decodedCookie.split(';');
+                    for(var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+
+                function checkCookie() {
+                    var user=getCookie("emailAdress");
+                    if (user != "") {
+                        getUserInfo();
+                    } else {
+                       
+                       window.location.href = "login.html"
+                    }
+                }
+               // cookie functions over
+
+</script>
+</body>
+</html>

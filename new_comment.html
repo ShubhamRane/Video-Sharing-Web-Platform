@@ -1,0 +1,97 @@
+<html>
+<head>
+  <title>New Comment</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style type="text/css">
+    body {
+        background-color:#444;
+    }
+  </style>
+</head>
+<body onload="checkCookie()">
+<div class="container" style:"margin: 100px 0;">
+    <div class="row">
+        <h1 style="text-align: center; color: white">New Comment</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <input id="comment" class="form-control" type="text">
+                </div>
+ 
+                <div class="form-group">
+                    <button id = "submit" class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+var btn = document.getElementById('submit');
+
+
+btn.addEventListener('click', function() {
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var str = this.responseText.trim();
+        if(str.length == 3) {
+            
+            window.location.href = "movie_show.html";
+
+        
+        } else {
+           window.location.href = "new_comment.html";
+        }
+        
+    }
+};
+
+var comment = document.getElementById('comment');
+var email = getCookie();
+var request = "cgi/new_comment.php?" +  "email=" + email.value + "&" + "comment=" + comment.value;
+
+xmlhttp.open("GET", request , true);
+xmlhttp.send();
+});
+
+
+
+  // set cookie functions
+                function setCookie(cname,cvalue,exdays) {
+                    var d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    var expires = "expires=" + d.toGMTString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                }
+
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var decodedCookie = decodeURIComponent(document.cookie);
+                    var ca = decodedCookie.split(';');
+                    for(var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+
+                function checkCookie() {
+                    var user=getCookie("emailAdress");
+                    if (user == "") {
+                    
+                       window.location.href = "login.html":
+                       
+                    }
+                }
+               // cookie functions over
+</script>
+
+</body>
+</html>

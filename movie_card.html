@@ -1,0 +1,283 @@
+<html>
+<head>
+  <title>Movies</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kranky" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <style type="text/css">
+
+  img {
+    height: 100%;
+    width: 100%;
+    margin: 10%;
+    /*padding: 5%;*/
+    box-shadow: 0 7px 4px #777;
+  }
+  .cards {
+      margin-top: 8%;
+  }
+  .headline {
+    position: absolute;
+    top: 85%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+
+  .invisible {
+    display: none;
+  }
+  .popup {
+    width: 200px;
+    background-color: white;
+    position: absolute;
+    top: 75%;
+    left: 75%;
+    z-index: 9;
+    border-radius: 5px;
+    color: white;
+    background-image: url("popup.png");
+    box-shadow: 0 10px 6px -6px #777;
+  }
+  .popup:before{
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+    position:absolute;
+
+    border-top: 2px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #141e30;
+    left:-8px;
+
+    top:7px;
+}
+.info {
+  background-color: grey;
+
+}
+.quality {
+    background: #FED700;
+    border-radius: 3px;
+    color: #222;
+    font-size: 11px;
+    font-weight: 500;
+    height: auto;
+    line-height: normal;
+    padding: 4px 6px;
+    position: absolute;
+    right: 6%;
+    top: 13%;
+    width: auto;
+    z-index: 4;
+}
+.information {
+  margin: 5px;
+  font-size : 12px;
+
+}
+.header {
+  margin: 10px;
+  font-family: Kranky;
+  font-size: 20px;
+}
+.info {
+  margin: 10px 0px;
+  padding: 3px;
+}
+.info span {
+  margin : 2px;
+  font-weight: bold;
+  text-align: left;
+}
+.info span:first-of-type {
+  background-color: #f79902;
+  border-radius: 2px;
+  padding : 3px;
+
+}
+.country {
+  margin-top: 0px;
+  margin-left: 5px;
+  text-align: left;
+}
+.genre {
+  margin: 5px 5px 15px;
+  text-align: left;
+}
+.btn-group {
+  width: 100%;
+
+}
+.btn {
+  width: 100% !important;
+  height: 30px !important;
+  text-align: center;
+  margin: 5px 0px;
+  position: relative;
+}
+.btn-primary span {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+}
+.btn-warning span {
+  position: absolute;
+  left: 25%;
+  top: 20% !important;
+}
+.form-control {
+  margin: 10px 6px !important;
+}
+.navbar-brand {
+  font-family: Pacifico !important;
+  font-size: 20px;
+  color: #900C3F;
+  border-width: 1px ;
+  border-style : solid;
+  border-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)) 1 100%;
+  padding-top: 3px !important;
+  z-index: 9;
+  text-shadow: 5px 5px 2px rgba(150, 150, 150, 1);
+}
+.navbar-brand div {
+  font-size: 13px;
+  text-align: right;
+  color: blue;
+  font-family: "Dancing Script";
+  text-shadow: none;
+}
+ul.nav li a:hover {
+  text-shadow: 5px 5px 2px rgba(150, 150, 150, 1);
+}
+
+
+
+/*new styles*/
+.sidebar {
+  background-color: #f5f5f0;
+  height: 100%;
+  padding: 0;
+}
+.container {
+  margin: 60px 0;
+  position: relative;
+}
+
+.sidetext {
+  padding: 7% 20% 0%;
+  font-family: Oswald;
+  font-size: 17px;
+  border
+}
+hr {
+border: 0;
+height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+  </style>
+</head>
+<body onload="getTopVideos()">
+<nav class="navbar">
+    <div class="navbar-header">
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><i class="fa fa-user-secret" aria-hidden="true"></i>WeShare<div>share videos</div></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><input id="search" class="form-control mr-sm-2" type="text" placeholder="Search" onkeyup="showHint(this.value)"></li>
+        <li><a href="signup.html">SignUp</a></li>
+        <li><a href ="login.html">Login</a></li>
+
+      </ul>
+    </div>
+</nav>
+
+ 
+<!-- movie card  --> 
+<div class="container cards">
+
+  <div  class="col-md-2 sidebar">
+      <div class="row sidetext">
+          <a href="all_playlist.html">Playlists</a>
+      </div>
+      <hr>
+      <div class="row sidetext">
+          <a href="all_channel.html">Channels</a>
+      </div>
+      <hr>
+      <div class="row sidetext">
+          <a href="#">Subscriptions</a>
+      </div>
+      <hr>
+      <div class="row sidetext">
+          <a href="make_payment.html">Make Payment</a>
+      </div>
+      <hr>      
+      <div class="row sidetext">
+          <a href="user_profile.html">Profile</a>
+      </div>
+      <hr>
+      <div class="row sidetext">
+          <a href="change_password.html">Change Password</a>
+      </div>
+      <hr>
+  </div>
+
+
+
+
+<div class="col-md-10">
+  <div id="container" class="row text-center" style="display:flex; flex-wrap: wrap;">
+
+
+  
+
+  </div>
+</div>
+
+
+</div>
+<script type="text/javascript">
+
+var container = document.getElementById('container');
+function getTopVideos() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        myObj = JSON.parse(this.responseText);
+        for (x in myObj) {
+            container.innerHTML += 
+                  "<div class='col-lg-3 col-md-4 col-sm-4' style='height: 260px;position: relative;'><iframe class='card-img-top' height='230px' width='200px' src=" + myObj[x].url +"></iframe> <a href='movie_show.html?video_id=" +  myObj[x].video_id + "'> <h4 style='color: black' class='headline'>" + myObj[x].title + "</h4></a></div>"
+
+        }
+        //document.getElementById("demo").innerHTML = txt;
+    }
+  };
+  xmlhttp.open("GET", "cgi/gettopvideos.php", true);
+  xmlhttp.send();
+
+}
+var search = document.getElementById('search');
+search.addEventListener('click', function() {
+  window.location.href = "search_video.html";
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<html>
+<head>
+	<title>Make Payment</title>
+	<style type="text/css">
+body {
+	/******************************************************************
+  This contains the font, Internet Explorer fall back options and 
+  the background color for all of the sites
+  ******************************************************************/
+	background: #C3E6F3 no-repeat center center fixed;
+	margin: 0 auto;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+	/* IE Fallback */
+	background: #c3e6f4;
+	width: 100%;
+	height: 100%;
+}
+/******************************************************************
+Below is the code for the red and blue button class which will be 
+for all of the buttons in the program including the submit, next,
+cancel, etc. 
+******************************************************************/
+
+.blueButton {
+	-moz-box-shadow: inset 0px -3px 7px 0px #29bbff;
+	-webkit-box-shadow: inset 0px -3px 7px 0px #29bbff;
+	box-shadow: inset 0px -3px 7px 0px #29bbff;
+	background-color: #0088BB;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #0088BB;
+	display: inline-block;
+	cursor: pointer;
+	color: #fff;
+	font-family: Arial;
+	font-size: 15px;
+	padding: 9px 23px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #263666;
+}
+
+.blueButton:hover {
+	background-color: #369cb8;
+}
+
+.blueButton:active {
+	position: relative;
+	top: 1px;
+}
+
+/******************************************************************
+Below is the code for the confirm order page, it displays the material ID and cost of the order
+******************************************************************/
+
+.payment input[type=text] {
+	width: 95%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	resize: none;
+	text-align: left;
+}
+
+.payment input[type=text]:focus {
+	border: 1px solid #a8a8a8;
+}
+
+.payment input[type=submit],
+.payment input[type=button] {
+	float: right;
+	margin: -20px 20px 10px 0px;
+}
+
+.payment {
+	border-radius: 5px;
+	background-color: #f8f8f8;
+	padding: 40px;
+	width: 40%;
+	margin: 0 auto;
+	margin-top: 20px;
+	box-shadow: 1px 1px 5px #888888;
+}
+
+
+/******************************************************************
+Below is the form for the confirm order table 
+******************************************************************/
+
+/* CSS for Credit Card Payment form */
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+.credit-card-box .form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box label {
+    display: block;
+}
+/* The old "center div vertically" hack */
+.credit-card-box .display-table {
+    display: table;
+}
+.credit-card-box .display-tr {
+    display: table-row;
+}
+.credit-card-box .display-td {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+.credit-card-box .panel-heading img {
+    min-width: 180px;
+}
+
+</style>
+</head>
+
+<body onload="checkCookie()">
+
+<div class="payment">
+
+		<div class="panel panel-default credit-card-box">
+			<div class="panel-heading display-table">
+				<div class="row display-tr">
+					<h3 class="panel-title display-td">Payment Details</h3>
+					<img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+				</div>
+			</div>
+		</div>
+		<br>
+		<label for="cardNumber">CARD NUMBER</label>
+		<input type="text" size="10" class="form-control" id="number" name="cardNumber" placeholder="Valid Card Number" autocomplete="cc-number" required autofocus />
+		<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+		<label for="cardExpir">EXPIRATION DATE</label>
+		<input type="text" size="5" class="form-control" id="expiration" name="cardExpiry" placeholder="MM / YY" autocomplete="cc-exp" required />
+		<label for="cardCVC">CV CODE</label>
+		<input type="text" size="3" class="form-control" id="cvv" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required />
+		<br>
+		<button class="blueButton" style="float:right;">Confirm Payment</button>
+		<br><br>
+</div>
+<!-- If you're using Stripe for payments -->
+<script type="text/javascript">
+
+var btn = document.getElementById('blueButton');
+btn.addEventListener('click', function() {
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+        if(this.responseText == "yes") {
+            window.location.href = "movie_card.html";
+
+        } else {
+
+            window.location.href = "make_payment.html";
+        }
+        
+    }
+};
+var number = document.getElementById('number');
+var expiration = document.getElementById('expiration');
+var cvv = document.getElementById('cvv');
+var email = getCookie("emailAdress");
+
+var request = "cgi/payment.php?" +"email=" + email.trim() + "&" + "number=" + number.value + "&" + "expiration=" + expiration.value + "&" + "cvv=" + cvv.value;
+
+xmlhttp.open("GET", request , true);
+xmlhttp.send();
+});
+
+                // set cookie functions
+                function setCookie(cname,cvalue,exdays) {
+                    var d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    var expires = "expires=" + d.toGMTString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                }
+
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var decodedCookie = decodeURIComponent(document.cookie);
+                    var ca = decodedCookie.split(';');
+                    for(var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+
+                function checkCookie() {
+                    var user=getCookie("emailAdress");
+                    if (user == "") {
+                    
+                       window.location.href = "login.html":
+                       
+                    }
+                }
+               // cookie functions over
+
+</script>
+</body>
+
+</html>
+

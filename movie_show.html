@@ -1,0 +1,260 @@
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kranky" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+  <style type="text/css">
+  body {
+     background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea);
+  }
+
+  iframe {
+      width: 100%;
+      height: 500px;
+      padding: 1%;
+  }
+  .comments {
+    padding: 5%;
+  }
+
+  .thumbnail {
+    margin: 0;
+    padding: 0;
+    box-shadow: 16px 16px 9px rgba(150, 150, 150, 1)
+  }
+  .header {
+  margin: 10px;
+  font-family: Kranky;
+  font-size: 20px;
+  font-weight: bold;
+} 
+  .actor, .director, .country, .duration, .imdb, .quality, .release {
+    margin: 10px;
+    color: #900C58;
+    font-weight: bold;
+  }
+  .small {
+    font-size: 12px;
+    opacity: 0.8;
+    font-weight: normal;
+  }
+  .desc p {
+    margin: 10px;
+    opacity: 0.8;
+  }
+  #quality {
+    background-color: black;
+    padding: 1px 2px;
+    border-radius: 2px;
+  }
+
+/*  star rating*/
+
+div.stars {
+  width: 125px;
+  display: inline-block;
+
+}
+ 
+
+input.star {
+  display: none;
+}
+
+label.star {
+  float: right;
+  padding: 1px;
+  font-size: 20px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+ 
+input.star-5:checked ~ label.star:before {
+  color: #FE7;
+  text-shadow: 0 0 20px #952;
+}
+
+input.star-1:checked ~ label.star:before { color: #F62; }
+label.star:hover { transform: rotate(-15deg) scale(1.3); }
+label.star:before {
+  content: '\f006';
+  font-family: FontAwesome;
+}
+
+/*star rating*/
+#rating {
+  padding-top: 20px;
+}
+ hr {
+    border: 0;
+    height: 1px;
+   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+ }
+ .btn-secondary {
+
+    margin: 20px 1px;
+    text-align: center;
+    background: #ed2553;
+    border-radius: 3px;
+    box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+    padding: 10px 17px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    text-decoration: none;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+}
+ .btn-secondary:hover {
+    transform: translateY(-3px);
+}
+
+  </style>
+</head>
+<body onload="getVideo()">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead" style="color:#900C3F">GENRE</p>
+            <div class="list-group" style="font-family:'AbrilFatface';font-weight:bold;font-size:18px">
+                <li class="list-group-item active">Action</li>
+                <li class="list-group-item">Adventure</li>
+                <li class="list-group-item">Fantasy</li>
+            </div>
+        </div>
+        <div class="col-md-9" >
+            <div class="thumbnail">
+                <div id="video_url">
+                 
+                </div>      
+                <div class="caption-full">
+                  <div class="row special">
+                    <div class="col-md-9" style="border-right-width: 1px ;border-right-style : solid;border-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)) 1 100%;">
+                      <div id="header" class="header" style="font-size: 30px; color: #900C3F"></div>
+                       <div class="desc">
+                          <p>
+                            here goes the description
+                          </p>  
+
+                      </div>
+
+
+
+                    </div>
+                    <div class="col-md-3" id="rating">
+                      <div style="padding-left: 5px;font-size: 18px;color:#FFC300;font-family:Lobster;">
+                          Rating
+                      </div>
+                      <div class="stars">
+                          <form action="">
+                              <input class="star star-5" id="star-5" type="radio" name="star"/>
+                              <label class="star star-5" for="star-5"></label>
+                              <input class="star star-4" id="star-4" type="radio" name="star"/>
+                              <label class="star star-4" for="star-4"></label>
+                              <input class="star star-3" id="star-3" type="radio" name="star"/>
+                              <label class="star star-3" for="star-3"></label>
+                              <input class="star star-2" id="star-2" type="radio" name="star"/>
+                              <label class="star star-2" for="star-2"></label>
+                              <input class="star star-1" id="star-1" type="radio" name="star"/>
+                              <label class="star star-1" for="star-1"></label>
+                          </form>
+                      </div>
+                    </div>
+
+                  </div>
+                        <div class="pull-right">
+                        <button class="btn btn-xs btn-secondary  like-review " id="like">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like
+                        </button>
+                         <button class="btn btn-secondary like-review" id="dislike">
+                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Dislike
+                        </button>
+                         <button class="btn btn-secondary like-review" id="comment">
+                            <a href="new_comment.html" style="text-decoration:none; color:white">
+                              <i class="fa fa-comments-o" aria-hidden="true"></i> Comment
+                            </a>
+                        </button>
+                         <button class="btn btn-secondary like-review" id="playlist">
+                            <a href="all_playlist.html?video_id=" +  style="color:white"><i class="fa fa-plus" aria-hidden="true"></i> Add to playlist</a>
+                        </button>
+                         <button class="btn btn-secondary like-review" id="channel">
+                            <i class="fa fa-play-circle-o" aria-hidden="true"></i> Subscribe
+                        </button>
+                      </div>
+
+                  <div class="row">
+
+                      <div class="col-md-12">
+                          <hr>
+                          <div class="header">
+                            <button>Comments</button>
+                          
+                          </div>
+                          <div class="comments">
+                            <strong>RUSHIKESH PATANGRAP</strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>awesome video i loke  the wwa hjsdkfaas ;ijpfasrio fjdsnavbig;rufhscjsnvbiruigahviosnahori</p>
+
+                            <strong>RUSHIKESH PATANGRAP</strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>awesome video i loke  the wwa hjsdkfaas ;ijpfasrio fjdsnavbig;rufhscjsnvbiruigahviosnahori</p>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+function getVideo() {
+  document.getElementById('video_url').innerHTML += '<iframe width="420" height="315" src="https://www.youtube.com/embed/G62HrubdD6o" frameborder="0" allowfullscreen></iframe>';
+  document.getElementById('header').innerHTML += 'Bahubali';
+}
+
+var likeButton = document.getElementById("like");
+likeButton.addEventListener('click', function() {
+  likeButton.innerHTML = "Liked";
+  likeButton.disabled = true;
+  checkCookie();
+
+});
+
+var dislikeButton = document.getElementById("dislike");
+dislikeButton.addEventListener('click', function() {
+  dislikeButton.innerHTML = "DisLiked";
+  dislikeButton.disabled = true;
+});
+
+var playlistButton = document.getElementById("playlist");
+playlistButton.addEventListener('click', function() {
+  playlistButton.innerHTML = "Added to Playlist";
+  playlistButton.disabled = true;
+});
+
+var subscribeButton = document.getElementById("channel");
+subscribeButton.addEventListener('click', function() {
+  subscribeButton.innerHTML = "Subscribed";
+  subscribeButton.disabled = true;
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+<head>
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+function showHint(str) {
+    if (str.length == 0) {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+		var responseArray = JSON.parse(this.responseText);
+        	document.getElementById("txtHint").innerHTML = "";
+		
+		for(var i=0; i<responseArray.length; i++) {
+                    document.getElementById("txtHint").innerHTML += responseArray[i]['title'] + " ";
+		    // can create another element here and onclick='url of video'
+		}
+                //document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "cgi/searchvideo.php?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+</script>
+</head>
+<body style="background-color:#444">
+<div class="container" style="width: 700px;margin: 100px 25%; border: 2px solid black; padding: 50px; background-color: white">
+<p style="font-size:20px"><b>Search a video below:</b></p>
+<form>
+
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i>  First Name</span>
+  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"  style="width:500px" onkeyup="showHint(this.value)">
+</div>
+
+</form>
+<p style="font-size:20px"><b>Suggestions  :  </b></p> 
+    <span id="txtHint">Transformers Age of Ultron</span>
+</div>
+</body>
+</html> 
